@@ -1,2 +1,2 @@
 # cmq879.github.io
-Personal Portfolio
+Christopher Quinn's Personal Portfolio
