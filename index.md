@@ -1,8 +1,8 @@
 # Portfolio website for Chris Quinn
-![headshot of Christopher Quinn](https://github.com/user-attachments/assets/d33ef659-da3e-43d1-8508-91e8f84bb2d2)
+
 <div>
 <img 
-    src="[https://blogs.egu.eu/divisions/cr/files/2021/07/NSIDC-rockglacier.jpg](https://github.com/user-attachments/assets/d33ef659-da3e-43d1-8508-91e8f84bb2d2)" 
+    src="https://github.com/user-attachments/assets/d33ef659-da3e-43d1-8508-91e8f84bb2d2" 
     width="50%" 
     alt="Headshot of Christopher Quinn" 
     title="Headshot of Christopher Quinn">
