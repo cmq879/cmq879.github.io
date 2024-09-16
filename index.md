@@ -2,8 +2,8 @@
 
 <div>
 <img 
-    src="https://github.com/user-attachments/assets/d33ef659-da3e-43d1-8508-91e8f84bb2d2" 
-    width="50%" 
+    src="https://avatars.githubusercontent.com/u/124209477?v=4"
+    width="25%" 
     alt="Headshot of Christopher Quinn" 
     title="Headshot of Christopher Quinn">
 </div>
