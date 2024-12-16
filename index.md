@@ -43,4 +43,53 @@ working on health behavior-related community environment research at the
 
 <sup>1</sup> University of Illinois Chicago. History. https://www.uic.edu/about/history/
 
-Last updated 11 Sept 2024
+
+
+#### Species Migration
+##### Examining Migration of the Pacific Loon (Gavia pacifica) in 2023 using data from the Global Biodiversity Information Facility (GBIF)
+
+The Pacific loon, *Gavia pacifica* (or *Colimbo pacífico* in Spanish) are one of five species of loons found in North America. Loons as a group are known for their distinctive and "haunting" calls, which include wails, hoots, and yodel sounds [(Committee to Protect Loons, n.d.)](https://loon.org/the-call-of-the-loon/). Male and female loons have a similar appearance, with black or dark gray heads and white-spotted or striped dark plumage.
+
+Pacific loons are considered to be a medium- to long-distance migration species, breeding throughout Alaska and the northern Canadian provinces and spending winters off the Pacific coast of North America from southern Alaska through Baha California, Mexico and the Sea of Cortez [(Billerman et al., 2022)](https://www.allaboutbirds.org/guide/Pacific_Loon/maps-range). However, Pacific loons have been spotted throughout many parts of the U.S., including along the Atlantic coast and in the Northwestern Passages in Canada [(eBird, 2021)](https://ebird.org/species/pacloo). 
+
+According to [Audubon.org](https://explorer.audubon.org/explore/species/1497/pacific-loon) (2024), the Pacific loon is a species of least concern in the International Union for the Conservation of Nature's (IUCN) threatened species ratings, with an estimated global population of about 840,000 individuals.
+
+<footer>
+    <a data-flickr-embed="true" data-footer="true" href="https://www.flickr.com/photos/mickthompson/19238537242/in/photolist-vj3wRY-2ovBQMc-b9j9ov-2j3jZHY-2ntaWdC-2oC6cDC-2nntnDC-HLwDEG-28kJ9Ly-4S5YCf-2iRcV9S-S2jQjR-2j3rboZ-2n4xgwt-2nnvPT4-284dNe6-Cg8B2p-Xnruj1-GDe29X-vhZQpu-28HdFvN-unJp9V-2nideZQ-2qfonJJ-qpkqQ2-NbwGEF-2nt9Ddg-PhHejN-2p6MXBb-Xnruhh-PhGWJ3-PhGUzU-ca4y95-PhHaUm-2p6LnBY-CfVufJ-21we98p-2f1Ncy5-zpZ35i-8UrVUs-4c2ozn-LaWqw5-2f1NbuG-H89Bjd-GmKeaf-Ciw2Gy-2nt9DfR-pVWECy-2nt3aDZ-2nt9CDf" title="Pacific Loon"><img src="https://live.staticflickr.com/65535/19238537242_f9b5c528f7_z.jpg" width="640" height="427" alt="Pacific Loon"/></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+    <p>Image credit: Flickr/Mick Thompson, CC by-NC 2.0</p>
+</footer>
+
+##### Data and Methods
+###### Global Biodiversity Information Facility (GBIF)
+
+The Global Biodiversity Information Facility (GBIF) website compiles a variety of species identification and observation data, including observations by citizen scientists. It is an important crowd-sourced tool for biodiversity research and has been used by researchers in scientific publications. GBIF compiles data from various species observation logging platforms like iNaturalist. To use GBIF you simply need to identify a species of interest and browse around the website to identify data for that species. You can download data directly from the website to your local machine, or for a reproducible workflow you can access GBIF data through python using the pygbif packages (specifically the occurrences and species functions). Other packages needed for this analysis include os, pathlib, calendar, zipfile, getpass, glob, geopandas, pandas, hvplot.pandas, cartopy.crs, and panel. Individual species data are accessible via a species key code that can be queried through python.  
+
+In my analysis I examine movement of Gavia pacifica across ecoregions, which requires a global shapefile of ecoregions. I used one hosted at [https://storage.googleapis.com/teow2016/Ecoregions2017.zip](https://storage.googleapis.com/teow2016/Ecoregions2017.zip). Ecoregions are geographically contiguous areas of similar climate and habitat that are characterized by those factors as well as the plants and animal species that inhabit them. A step that helps with faster processing here is to simplify the ecoregion geodataframe geometry.
+
+Given the spatial component to this analysis, only observations in GBIF with geographic coordinates were used. I also excluded single observations in an ecoregion and month due to the potential for species misidentification. I then normalized the occurrences by ecoregion and month to adjust for unequal sampling effort across different parts of the world. You can find the full code for this analysis in my [Jupyter notebook file in my project repository here.](https://github.com/earthlab-education/species-distribution-coding-challenge-cmq879/blob/main/notebooks/gavia_pacifica_migration.ipynb) 
+
+#### Map and Plot
+
+<embed type="text/html" src="imgs/gaviapac_migration_plot.html" width="800" height="800">
+
+### What the GBIF migration data tell us
+
+According to GBIF-reported field observations in 2023, Gavia Pacifica overwinter in the Amazon region of South America, primarily in Brazil. However, the Pacific loon is known to overwinter off the Pacific coast of the U.S., so it is likely that these are mis-identifications of another species. 
+
+It is important to keep in mind that when using crowd-sourced data such as that included in GBIF, there may not be 100% accuracy in identification. Therefore, it's possible that some observations are actually of different Gavia species, or even a different genus entirely. 
+
+### References
+
+Natinoal Audubon Society. 2024. Field guide: Pacific Loon. https://explorer.audubon.org/explore/species/1497/pacific-loon 
+
+Billerman S. M., B. K. Keeney, P. G. Rodewald, and T. S. Schulenberg (Editors) (2022). Birds of the World. Cornell Laboratory of Ornithology, Ithaca, NY, USA. https://birdsoftheworld.org/bow/home
+
+eBird. 2021. eBird: An online database of bird distribution and abundance [web application]. eBird, Cornell Lab of Ornithology, Ithaca, New York. Available: http://www.ebird.org.
+
+GBIF.org. (22 October 2024.) GBIF Occurrence Download. https://doi.org/10.15468/dl.c96k9k
+
+Loon Preservation Committee. n.d. About Loons. https://loon.org/about-the-common-loon/
+
+U.S. Geological Survey (USGS) - Gap Analysis Project (GAP), 2018, Pacific Loon (Gavia pacifica) bPALOx_CONUS_2001v1 Range Map: U.S. Geological Survey data release, https://doi.org/10.5066/F7MK6BXK.
+
+Last updated 16 Dec 2024
