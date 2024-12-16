@@ -21,7 +21,7 @@ At CU I am a member of the People, Environment, Economics, and Programming (PEEP
 ## Earth Lab Fundamentals of Earth Data Science course, Fall 2024
 ### Assignment Posts
 
-#### "First" Map Post
+### "First" Map Post
 A large public research university not far outside of Chicago's famed 
 Loop, the [University of Illinois at Chicago was established in the 1960s](https://www.uic.edu/about/history/) 
 near the interchange of two interstate highways and several different 
@@ -45,7 +45,7 @@ working on health behavior-related community environment research at the
 
 
 
-#### Species Migration
+### Species Migration
 ##### Examining Migration of the Pacific Loon (Gavia pacifica) in 2023 using data from the Global Biodiversity Information Facility (GBIF)
 
 The Pacific loon, *Gavia pacifica* (or *Colimbo pacífico* in Spanish) are one of five species of loons found in North America. Loons as a group are known for their distinctive and "haunting" calls, which include wails, hoots, and yodel sounds [(Committee to Protect Loons, n.d.)](https://loon.org/the-call-of-the-loon/). Male and female loons have a similar appearance, with black or dark gray heads and white-spotted or striped dark plumage.
@@ -72,13 +72,13 @@ Given the spatial component to this analysis, only observations in GBIF with geo
 
 <embed type="text/html" src="imgs/gaviapac_migration_plot.html" width="800" height="800">
 
-### What the GBIF migration data tell us
+#### What the GBIF migration data tell us
 
 According to GBIF-reported field observations in 2023, Gavia Pacifica overwinter in the Amazon region of South America, primarily in Brazil. However, the Pacific loon is known to overwinter off the Pacific coast of the U.S., so it is likely that these are mis-identifications of another species. 
 
 It is important to keep in mind that when using crowd-sourced data such as that included in GBIF, there may not be 100% accuracy in identification. Therefore, it's possible that some observations are actually of different Gavia species, or even a different genus entirely. 
 
-### References
+#### References
 
 Natinoal Audubon Society. 2024. Field guide: Pacific Loon. https://explorer.audubon.org/explore/species/1497/pacific-loon 
 
@@ -92,4 +92,63 @@ Loon Preservation Committee. n.d. About Loons. https://loon.org/about-the-common
 
 U.S. Geological Survey (USGS) - Gap Analysis Project (GAP), 2018, Pacific Loon (Gavia pacifica) bPALOx_CONUS_2001v1 Range Map: U.S. Geological Survey data release, https://doi.org/10.5066/F7MK6BXK.
 
+
+
+
+## Historical Redlining in Cleveland and Vegetation Health
+
+This analysis examines greenness of neighborhoods relative to historical redlining, or race-based exclusionary housing practices that were common in many cities in the U.S. in the middle-to-late 20th century. The [Digital Scholarship Lab](https://dsl.richmond.edu/) at the University of Richmond in Virginia ... [compiled spatial data on redlining](https://dsl.richmond.edu/panorama/redlining) using archival sources and developed redlining zone maps for numerous cities around the country. These maps are great tools for both teaching and learning, and the DSL has provided resources at the Mapping Inequality website. 
+
+Some additional resources for further reading and data include the following:
+    * [Ideastream: Racism was the primary reason Ohio neighborhoods were redlined, new study shows](https://www.ideastream.org/health/2023-02-02/racism-was-the-primary-reason-ohio-neighborhoods-were-redlined-new-study-shows)
+    * [Visual Cleveland. Black Suburban Population Change, 1950-2010](https://visual.clevelandhistory.org/black-population-suburbs/)
+    * Redlining maps for other Ohio cities: (https://guides.osu.edu/maps/redlining)
+    * Berkeley Public Health: [50 years after being outlawed, redlining still drives neighborhood health inequities](https://publichealth.berkeley.edu/news-media/research-highlights/50-years-after-being-outlawed-redlining-still-drives-neighborhood-health-inequities)
+
+#### Map of Redlining Zones in Cleveland
+<embed type="text/html" src="imgs/cleve_rlplot1.html" width="600" height="600">
+
+The spatial redlining data in this map come the Digital Scholarship Lab at the University of Richmond. Residential areas were graded from A to D in terms of minority racial/ethnic groups' presence in the area. This was done for purposes of steering certain buyers away from areas with large non-white populations. In addition, securing mortgage loans in poorly-graded areas was very difficult. The effects of this type of systemic racism is perpetuated still today in economic, health, and environmental quality disparities, among others. 
+
+#### Normalized Difference Vegetation Index
+
+The data source for this is the Harmonized Landsat Sentinel-2 (HLS) which measures surface reflectance. The HLS imager was on NASA/USGS Landsat 8 and Landsat 9 satellites. The HLSL30 product I am using invludes spectral data at a 30-meter resolution. The technical name for the data is Nadir Bidirectional Reflectance Distribution Function (BRDF)-Adjusted Reflectance (NBAR). I am interested in recent data, and selected the July 26, 2023 imagery because it was a clear day in Cleveland. 
+
+To measure greenness, I will calculate the Normalized Difference Vegetation Index (NDVI) for Cleveland. NDVI uses red- and near-infrared (nir) reflectance based on the following formula: 
+
+NDVI = (NIR - RED) / (NIR + RED)
+
+The measure ranges between 0 and, with 1 being the highest level of greenness or vegetation health. As such, it is generally best measured in the peak months of the growing season. The following map displays the estimated NDVI from July 26, 2023. 
+<embed type="text/html" src="imgs/cleve_ndvi_map.png" width="800" height="800">
+
+#### Analysis
+
+The question here is whether NDVI score and redlining grade are related. My hypothesis is that they are, that we would see higher NDVI scores (more greenness) with an A and B redlining grade than with a C or D grade. To assess this, I'll use 2 models: a tree-based algorithm and a simple linear regression (using the sci-kit learn and statsmodels.api libraries, respectively). First, I'll look at basic means of each redlining grade across all the zones in the spatial redlining data and view it as a bar chart. 
+
+<embed type="text/html" src="imgs/rl_grad_ndvi_means.html" width="400" height="500">
+
+Next, I used a decision tree classifier to predict the redlining grade based on the NDVI score for each zone in the spatial redlining data. The map on the left shows the NDVI score in 2023 and the map on the right shows the redlining zones. 
+
+<embed type="text/html" src="imgs/NDVI_and_redlining_plots_sxs.html" width="800" height="800">
+
+We can see that there is definitely some similarities where many of the darker green areas on the NDVI plot are also green on the redlining map. Next I'll calculate the error and see where the tree classifier didn't predict the correct grade for the zone.
+
+<embed type="text/html" src="imgs/cleve_error_plot.html" width="800" height="800">
+
+For the second model I will run a linear regression of the NDVI score on grade as a categorical variable, with the highest grade as the reference. The results there showed that there were statistically significant differences in the NDVI score based on the redlining grade, with scores B, C, and D having significantly lower average NDVI scores compared to A grade zones, though the differences are very small. 
+<embed type="text/html" src="imgs/redlining_ndvi_ols_summary.png" width="500" height="400">
+
+Though the observed differences in greenness are night wildly different, there is a lingering difference between the old redlining zones in Cleveland. To further confirm this, I would consider some additional analysis. First, examining NDVI at different time points to ensure a consistent relationship would be important. Then, we might want to know more than just the NDVI - like what kinds of plants or trees are there? What is the extent of tree canopy cover that provides shade? What about species biodiversity? Analyses for another day!
+
+#### References
+
+Center for Public History + Digital Humanities. (2024). "Visual Cleveland. Black Suburban Population Change, 1950-2010".
+
+Masek, J., Ju, J., Roger, J., Skakun, S., Vermote, E., Claverie, M., Dungan, J., Yin, Z., Freitag, B., Justice, C. (2021). <i>HLS Operational Land Imager Surface Reflectance and TOA Brightness Daily Global 30m v2.0</i> [Data set]. NASA EOSDIS Land Processes Distributed Active Archive Center. Accessed 2024-12-15 from https://doi.org/10.5067/HLS/HLSL30.002.
+
+Nelson, R. K., Winling, L, et al. (2023). Mapping Inequality: Redlining in New Deal America. Digital Scholarship Lab. https://dsl.richmond.edu/panorama/redlining.
+
+
 Last updated 16 Dec 2024
+
+
